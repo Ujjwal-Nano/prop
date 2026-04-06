@@ -455,12 +455,83 @@ body {
   .reasons-grid { grid-template-columns: 1fr; }
   .lock-panel { padding: 2.5rem 1.5rem 2rem; }
 }
+
+/* ── MUSIC MODAL ── */
+#music-modal {
+  position: fixed; inset: 0; z-index: 300;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(26,22,20,.85);
+  backdrop-filter: blur(8px);
+  opacity: 0; visibility: hidden;
+  transition: opacity .5s ease, visibility .5s;
+}
+#music-modal.show { opacity: 1; visibility: visible; }
+.music-panel {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(201,169,110,.3);
+  padding: 3rem 2.5rem;
+  text-align: center;
+  width: min(380px, 90vw);
+  animation: fadeUp .5s ease forwards;
+}
+.music-note {
+  font-size: 2.8rem; margin-bottom: 1.2rem;
+  display: block;
+  animation: lockPulse 2.5s ease-in-out infinite;
+}
+.music-title {
+  font-family: 'Pinyon Script', cursive;
+  font-size: 2.2rem; color: var(--gold2);
+  margin-bottom: .5rem;
+}
+.music-sub {
+  font-family: 'Jost', sans-serif;
+  font-size: .68rem; letter-spacing: .2em;
+  color: rgba(255,255,255,.35);
+  text-transform: uppercase; margin-bottom: 2rem;
+}
+.music-btns {
+  display: flex; gap: 1rem; justify-content: center;
+}
+.music-btn {
+  flex: 1;
+  font-family: 'Jost', sans-serif;
+  font-size: .72rem; letter-spacing: .2em;
+  text-transform: uppercase;
+  border: none; padding: .9rem 1.2rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: opacity .2s, transform .2s;
+}
+.music-btn:hover { opacity: .85; transform: translateY(-1px); }
+.music-btn.yes {
+  background: linear-gradient(135deg, var(--gold), #a87f4a);
+  color: var(--ink);
+}
+.music-btn.no {
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(201,169,110,.25);
+  color: rgba(255,255,255,.5);
+}
 </style>
 </head>
 <body>
 
-<!-- ── BACKGROUND MUSIC — add your mp4 file in the same folder and update src ── -->
+<!-- ── BACKGROUND MUSIC ── -->
 <audio id="bgMusic" src="music.mp3" loop preload="auto"></audio>
+
+<!-- ── MUSIC PROMPT MODAL ── -->
+<div id="music-modal">
+  <div class="music-panel">
+    <span class="music-note">🎵</span>
+    <div class="music-title">A little melody</div>
+    <div class="music-sub">This letter comes with music — would you like to play it?</div>
+    <div class="music-btns">
+      <button class="music-btn yes" onclick="startMusic()">Yes, play it 🎶</button>
+      <button class="music-btn no" onclick="dismissMusic()">No, thanks</button>
+    </div>
+  </div>
+</div>
 
 <div id="cur"></div>
 
@@ -719,6 +790,16 @@ function spawnConf() {
   el.style.animationDuration = dur + 's';
   document.body.appendChild(el);
   setTimeout(() => el.remove(), dur * 1000 + 200);
+}
+/* ── MUSIC MODAL ── */
+function startMusic() {
+  document.getElementById('music-modal').classList.remove('show');
+  const music = document.getElementById('bgMusic');
+  music.volume = 0.4;
+  music.play().catch(() => {});
+}
+function dismissMusic() {
+  document.getElementById('music-modal').classList.remove('show');
 }
 
 function spawnConf() {
