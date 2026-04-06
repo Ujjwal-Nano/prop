@@ -480,12 +480,12 @@ body {
   animation: lockPulse 2.5s ease-in-out infinite;
 }
 .music-title {
-  font-family: 'Pinyon Script', cursive;
+  font-family: 'Pinyon Script', sans-serif;
   font-size: 2.2rem; color: var(--gold2);
   margin-bottom: .5rem;
 }
 .music-sub {
-  font-family: 'Jost', sans-serif;
+  font-family: 'Pinyon Script', sans-serif;
   font-size: .68rem; letter-spacing: .2em;
   color: rgba(255,255,255,.35);
   text-transform: uppercase; margin-bottom: 2rem;
@@ -523,11 +523,10 @@ body {
 <!-- ── MUSIC PROMPT MODAL ── -->
 <div id="music-modal">
   <div class="music-panel">
-    <span class="music-note">🎵</span>
-    <div class="music-title">A little melody</div>
-    <div class="music-sub">This letter comes with music — would you like to play it?</div>
+    <div class="music-title">Question</div>
+    <div class="music-sub"> Would you like to play music in the background?</div>
     <div class="music-btns">
-      <button class="music-btn yes" onclick="startMusic()">Yes, play it 🎶</button>
+      <button class="music-btn yes" onclick="startMusic()">Yes 🎶</button>
       <button class="music-btn no" onclick="dismissMusic()">No, thanks</button>
     </div>
   </div>
