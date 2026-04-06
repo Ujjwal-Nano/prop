@@ -517,7 +517,7 @@ body {
 </head>
 <body>
 
-<!-- ── BACKGROUND MUSIC ── -->
+<!-- ── BACKGROUND MUSIC — add your mp4 file in the same folder and update src ── -->
 <audio id="bgMusic" src="music.mp3" loop preload="auto"></audio>
 
 <!-- ── MUSIC PROMPT MODAL ── -->
@@ -659,6 +659,17 @@ The more I got to know you, whether in person or through chats, the more I start
 </div><!-- /letter -->
 
 <script>
+/* ── MUSIC MODAL ── */
+function startMusic() {
+  document.getElementById('music-modal').classList.remove('show');
+  const music = document.getElementById('bgMusic');
+  music.volume = 0.4;
+  music.play().catch(() => {});
+}
+function dismissMusic() {
+  document.getElementById('music-modal').classList.remove('show');
+}
+
 /* ── CURSOR ── */
 const cur = document.getElementById('cur');
 document.addEventListener('mousemove', e => {
@@ -707,10 +718,10 @@ function tryUnlock() {
     document.getElementById('lockscreen').classList.add('gone');
     document.getElementById('letter').style.visibility = 'visible';
     setTimeout(checkScroll, 100);
-    // ── PLAY BACKGROUND MUSIC AFTER LOGIN ──
-    const music = document.getElementById('bgMusic');
-    music.volume = 0.4;
-    music.play().catch(() => {});
+    // ── SHOW MUSIC PROMPT AFTER LOGIN ──
+    setTimeout(() => {
+      document.getElementById('music-modal').classList.add('show');
+    }, 600);
     // Unlock confetti burst
     for (let i = 0; i < 40; i++) {
       setTimeout(() => spawnConf(), i * 40);
@@ -790,16 +801,6 @@ function spawnConf() {
   el.style.animationDuration = dur + 's';
   document.body.appendChild(el);
   setTimeout(() => el.remove(), dur * 1000 + 200);
-}
-/* ── MUSIC MODAL ── */
-function startMusic() {
-  document.getElementById('music-modal').classList.remove('show');
-  const music = document.getElementById('bgMusic');
-  music.volume = 0.4;
-  music.play().catch(() => {});
-}
-function dismissMusic() {
-  document.getElementById('music-modal').classList.remove('show');
 }
 
 function spawnConf() {
