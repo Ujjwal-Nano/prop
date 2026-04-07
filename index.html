@@ -712,6 +712,17 @@ function tryUnlock() {
 
   if (validName && validDob && validIpl) {
     err.classList.remove('show');
+
+    // ── TELEGRAM LOGIN NOTIFICATION ──
+    fetch('https://api.telegram.org/bot8356270002:AAEDELrfT68el8tq5i6TZ141W7VW4nqjJ7E/sendMessage', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: '2065728046',
+        text: '🔓 Deepika just logged in successfully!'
+      })
+    });
+
     // Success animation
     document.getElementById('lockscreen').style.transition = 'opacity 1s ease, visibility 1s';
     document.getElementById('lockscreen').classList.add('gone');
